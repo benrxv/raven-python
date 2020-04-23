@@ -12,6 +12,7 @@ from contextlib import contextmanager
 from raven.utils.compat import Iterator, next
 from raven.utils.wsgi import (
     get_current_url, get_headers, get_environ)
+from django.utils.deprecation import MiddlewareMixin
 
 
 @contextmanager
@@ -76,7 +77,7 @@ class ClosingIterator(Iterator):
             self.closed = True
 
 
-class Sentry(object):
+class Sentry(MiddlewareMixin):
     """
     A WSGI middleware which will attempt to capture any
     uncaught exceptions and send them to Sentry.
